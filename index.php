@@ -1,5 +1,7 @@
 <?php
 
+require_once 'db.php';
+
 if (isset($_POST['name'])) {
   $original_name = basename($_FILES["bodyshot"]["name"]);
   $new_name = "uploads/" . uniqid($original_name);
@@ -8,6 +10,13 @@ if (isset($_POST['name'])) {
     $message = "file uploaded successfully";
   else
     $message = "file upload failed!";
+
+  insert_weighin(
+    $_POST['name'],
+    $_POST['feeling'],
+    $_POST['motivation'],
+    $new_name,
+    $_POST['weight']);
 }
 
 ?>
