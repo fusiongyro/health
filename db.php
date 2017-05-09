@@ -7,12 +7,13 @@ $connection = new PDO(DSN, DB_USER, DB_PASSWORD);
 function createdb() {
   global $connection;
   $WEIGHINS = "CREATE TABLE weighins (
-                  name VARCHAR PRIMARY KEY, 
+                  name VARCHAR, 
                   feeling integer check(feeling BETWEEN 1 AND 5), 
                   motivation text, 
                   bodyshot_path varchar, 
                   weight integer check(weight BETWEEN 0 and 1000),
-                  \"timestamp\" timestamp not null default current_timestamp
+                  \"timestamp\" timestamp not null default current_timestamp,
+                  PRIMARY KEY (name, \"timestamp\")
                )";
   $connection->exec($WEIGHINS);
 }

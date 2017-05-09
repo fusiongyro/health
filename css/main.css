@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway|Taviraj:600');
+@import url('https://cdn.jsdelivr.net/picnicss/6.3.2/picnic.min.css');
+
+.w3-theme {}
+.w3-text-theme {}
+
+
+h1, h2, h3, h4, h5, h6, strong {
+  font-family: Taviraj, serif;
+}
+
+h1 {
+  color:#fff !important;
+  background-color:#e91e63 !important;
+  margin-top: 0.5in;
+  margin-bottom: 0.5in;
+  padding-left: 2em;
+  border-radius: 10px;
+}
+
+.control-label {
+  font-size: larger;
+  display: block;
+  padding-bottom: 0.25ex;
+}
+
+.form-element {
+  padding-bottom: 1.5em;
+}
+
+body {
+  color:#e91e63 !important;
+  font-family: Raleway, sans-serif;
+  margin: 1em 1in;
+}
