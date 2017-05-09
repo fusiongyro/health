@@ -24,7 +24,9 @@ if (isset($_POST['name'])) {
 <head>
   <title>Welcome!</title>
   <link rel="stylesheet" type="text/css" href="css/main.css"/>
-  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+  <script src="//code.highcharts.com/highcharts.js"></script>
 </head>
 <body>
 <?php if (isset($message)): ?>
@@ -75,53 +77,68 @@ if (isset($_POST['name'])) {
 </form>
 
 <script type="application/ecmascript">
-  document.onload = function() {
-    var request = new XMLHttpRequest();
-    request.open('GET', 'history.php?name=' + 'Amber', true);
+  function from_pgdate(dateString) {
+    var parts = dateString.split('-');
+    return Date.UTC(parts[0], parts[1], parts[2]);
+  }
 
-    request.onload = function() {
-      if (this.status >= 200 && this.status < 400) {
+  function renderChart(name, result) {
+    Highcharts.chart('container', {
+      title: {
+        text: ''
+      },
 
-        Highcharts.chart('container', {
-          title: {
-            text: ''
-          },
+      xAxis: {
+        type: 'datetime',
+        dateTimeLabelFormats: { // don't display the dummy year
+          month: '%e. %b',
+          year: '%b'
+        },
+        title: {
+          text: 'Date'
+        }
+      },
 
-          yAxis: {
-            title: {
-              text: 'Number of Employees'
-            }
-          },
-          legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
-          },
+      yAxis: {
+        title: {
+          text: 'Number of Employees'
+        }
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+      },
 
-          plotOptions: {
-            series: {
-              pointStart: 2010
-            }
-          },
+      plotOptions: {
+        series: {
+          pointStart: 2017
+        }
+      },
 
-          series: [{
-            name: 'Amber',
-            data: [
-              this.response
-            ]
-          }]
-        });
-      } else {
-        // We reached our target server, but it returned an error
-      }
-    };
+      series: [{
+        name: name,
+        data: _.map(_.toPairs(result), function(r) { return [Date.parse(r[0]), r[1]] })
 
-    request.onerror = function() {
-      // There was a connection error of some sort
-    };
+      }]
+    });
+  }
 
-    request.send();
-  };
+  function updateChart(name) {
+    $.get('history.php', {name: name},  function(result){
+      renderChart(name, result);
+    }, 'json');
+  }
+
+  (function($){
+    $('#name').change(function(e) {
+      updateChart($(e.target).val());
+    });
+
+    $(function(){
+      updateChart('Amber');
+    });
+  })(jQuery);
 </script>
 </body>
 </html>
