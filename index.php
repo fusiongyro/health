@@ -69,9 +69,6 @@ if (isset($_POST['name'])) {
     <input name="weight" id="weight">
   </div>
 
-  <div class="form-element">
-    <p>This data is fake! Don't read anything into it!</p>
-  </div>
   <div id="chart"></div>
 
   <div class="form-element">
