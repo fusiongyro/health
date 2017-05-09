@@ -69,7 +69,10 @@ if (isset($_POST['name'])) {
     <input name="weight" id="weight">
   </div>
 
-  <div id="container"></div>
+  <div class="form-element">
+    <p>This data is fake! Don't read anything into it!</p>
+  </div>
+  <div id="chart"></div>
 
   <div class="form-element">
     <input type="submit" value="Update" name="submit">
@@ -77,13 +80,8 @@ if (isset($_POST['name'])) {
 </form>
 
 <script type="application/ecmascript">
-  function from_pgdate(dateString) {
-    var parts = dateString.split('-');
-    return Date.UTC(parts[0], parts[1], parts[2]);
-  }
-
   function renderChart(name, result) {
-    Highcharts.chart('container', {
+    Highcharts.chart('chart', {
       title: {
         text: ''
       },
