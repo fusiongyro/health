@@ -96,7 +96,7 @@ if (isset($_POST['name'])) {
 
       yAxis: {
         title: {
-          text: 'Number of Employees'
+          text: 'Weight'
         }
       },
       legend: {
