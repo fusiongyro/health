@@ -7,7 +7,7 @@ if (isset($_POST['name'])) {
   $new_name = "uploads/" . uniqid($original_name);
 
   if (move_uploaded_file($_FILES["bodyshot"]["tmp_name"], $new_name))
-    $message = "file uploaded successfully";
+    $message = "Thanks for weighing in! You are awesome!";
   else
     $message = "file upload failed!";
 
@@ -31,7 +31,6 @@ if (isset($_POST['name'])) {
 <body>
 <?php if (isset($message)): ?>
   <p><?php echo $message ?></p>
-  <blockquote><pre><code><?php var_dump($_POST); ?></code></pre></blockquote>
 <?php endif; ?>
 <h1>Weigh In!</h1>
 <form method="post" enctype="multipart/form-data">
